@@ -1,35 +1,35 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// Generated using webpack-cli https://github.com/webpack/webpack-cli
 
-module.exports = {
-  mode: 'development',
-  entry: path.join(__dirname, "src", "script.js"),
-  output: {
-    module: true,
-    path:path.resolve(__dirname, "dist"),
-  },
-  target: 'web',
-  experiments: {
-    outputModule: true,
-  },
-  optimization: {
-    minimize: true,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.?js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "@sucrase/webpack-loader",
-          options: { transforms: ["jsx", "imports"] },
-        },
-      },
-    ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "index.html"),
-    }),
-  ],
-}
+const path = require('path');
+
+
+const config = {
+    mode: 'production',
+    entry: './index.jsx',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+    },
+    devServer: {
+        open: true,
+        host: 'localhost',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/i,
+                loader: 'babel-loader',
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+                type: 'asset',
+            },
+
+            // Add your rules for custom modules here
+            // Learn more about loaders from https://webpack.js.org/loaders/
+        ],
+    },
+};
+
+module.exports = () => {
+    return config;
+};
